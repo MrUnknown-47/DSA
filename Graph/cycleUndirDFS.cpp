@@ -20,7 +20,7 @@ public:
         l[v].push_back(u);
     }
 
-    bool isCycleUndireDFS(int src, int par, vector<bool> &vis){
+    bool isCycleUndireDFS(int src, int par, vector<bool> &vis){ //O(V+E)
         vis[src] = true;
         list<int> neighbours = l[src];
         for(int v: neighbours){
