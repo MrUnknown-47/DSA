@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    bool dfs(int src, vector<bool>& vis, vector<bool>& path, vector<vector<int>>& edges) {
+    bool isCycleDFS(int src, vector<bool>& vis, vector<bool>& path, vector<vector<int>>& edges) {
         vis[src] = true;
         path[src] = true;
 
