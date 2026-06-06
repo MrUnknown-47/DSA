@@ -21,42 +21,36 @@ public:
         l[u].push_back(v);
     }
 
-    void topoSort()
+    void dfs(int curr, vector<bool> &vis, stack<int> &s)
     {
-        vector<int> res;
-        vector<int> indeg(V, 0);
-        for (int u = 0; u < V; u++)
-        {
-            for (int v : l[u])
-                indeg[v]++;
-        }
+        vis[curr] = true;
 
-        queue<int> q;
-        for (int i = 0; i < V; i++)
+        for (int v : l[curr])
         {
-            if (indeg[i] == 0)
-                q.push(i);
-        }
-
-        while (!q.empty())
-        {
-            int curr = q.front();
-            q.pop();
-            res.push_back(curr);
-
-            for (int v : l[curr])
+            if (!vis[v])
             {
-                indeg[v]--;
-                if (indeg[v] == 0)
-                    q.push(v);
+                dfs(v, vis, s);
             }
         }
+        s.push(curr);
+    }
 
-        for (int val : res)
+    void topoSort()
+    {
+        vector<bool> vis(V, false);
+        stack<int> s;
+        for (int i = 0; i < V; i++)
         {
-            cout << val << " ";
+            if (!vis[i])
+            {
+                dfs(i, vis, s);
+            }
         }
-        cout << endl;
+        while (!s.empty())
+        {
+            cout << s.top() << " ";
+            s.pop();
+        }
     }
 };
 int main()
@@ -67,7 +61,7 @@ int main()
     g.addEdge(4, 0);
     g.addEdge(4, 1);
     g.addEdge(5, 0);
-    g.addEdge(5, 2);
+    g.addEdge(5, 3);
 
     g.topoSort();
     return 0;
